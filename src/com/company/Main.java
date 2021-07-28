@@ -8,15 +8,17 @@ public class Main {
 
         Player player = new Player(board);
 
-        while (!player.isFinished()) {
+        while (true) {
             player.computerMove();
             board.print();
+            if (player.isFinished()) {
+                break;
+            }
+            player.userMove();
             if (player.isFinished()) {
                 board.print();
                 break;
             }
-            player.userMove();
-            board.print();
         }
     }
 }

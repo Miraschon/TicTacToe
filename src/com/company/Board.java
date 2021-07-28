@@ -19,12 +19,13 @@ public class Board {
     }
 
     public void print() {
-        String line = "    ┌───┬───┬───┐\n" +
-                "    │ "+ cellToSrting(cell[0][0])+" │ "+ cellToSrting(cell[0][1])+" │ "+ cellToSrting(cell[0][2])+" │\n" +
+        String line ="      0   1   2\n"+
+                "    ┌───┬───┬───┐\n" +
+                "  0 │ "+ cellToSrting(cell[0][0])+" │ "+ cellToSrting(cell[0][1])+" │ "+ cellToSrting(cell[0][2])+" │\n" +
                 "    ├───┼───┼───┤\n" +
-                "    │ "+ cellToSrting(cell[1][0])+" │ "+ cellToSrting(cell[1][1])+" │ "+ cellToSrting(cell[1][2])+" │\n" +
+                "  1 │ "+ cellToSrting(cell[1][0])+" │ "+ cellToSrting(cell[1][1])+" │ "+ cellToSrting(cell[1][2])+" │\n" +
                 "    ├───┼───┼───┤\n" +
-                "    │ "+ cellToSrting(cell[2][0])+" │ "+ cellToSrting(cell[2][1])+" │ "+ cellToSrting(cell[2][2])+" │\n" +
+                "  2 │ "+ cellToSrting(cell[2][0])+" │ "+ cellToSrting(cell[2][1])+" │ "+ cellToSrting(cell[2][2])+" │\n" +
                 "    └───┴───┴───┘";
         System.out.println(line);
     }
