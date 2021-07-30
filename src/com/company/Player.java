@@ -24,6 +24,17 @@ public class Player {
             diagonalLeft = diagonalLeft + board.get(i,2-i);
         }
 
+        /*
+              Создать методы в Board:
+
+              Метод сразу рассчитывает сумму, и если сумма равна checkSum, делает putCross или putZero.
+
+              putIfRow(индекс Row, int checkSum, Enum cellType)
+              putifCol(индекс Col, int checkSum, Enum cellType)
+              putIfDiagLeft(int checkSum, Enum cellType)
+              putIfDiagRight(int checkSum, Enum cellType)
+         */
+
         if (firstRow==-2) {
             for (int i=0;i<3;i++){
                 if(board.get(0,i)==0){
