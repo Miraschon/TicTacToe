@@ -5,275 +5,99 @@ import java.util.Scanner;
 
 public class Player {
     private Board board;
-    private int counter=0;
+    public int counter = 0;
+    public boolean isCrossHuman;
 
     public Player(Board board) {
         this.board = board;
     }
-    public boolean defense(){
-        int firstRow = 0, secondRow = 0, thirdRow = 0, firstColumn = 0, secondColumn = 0, thirdColumn = 0, diagonalRight = 0, diagonalLeft = 0;
 
-        for (int i = 0; i < 3; i++) {
-            firstRow = firstRow + board.get(0,i);
-            secondRow = secondRow + board.get(1,i);
-            thirdRow = thirdRow + board.get(2,i);
-            firstColumn = firstColumn + board.get(i,0);
-            secondColumn = secondColumn + board.get(i,1);
-            thirdColumn = thirdColumn + board.get(i,2);
-            diagonalRight = diagonalRight + board.get(i,i);
-            diagonalLeft = diagonalLeft + board.get(i,2-i);
-        }
+    public boolean defense() {
+        if(!isCrossHuman){
+        return
+                board.putIfRow(0, -2, Cell.CROSS) ||
+                        board.putIfRow(1, -2, Cell.CROSS) ||
+                        board.putIfRow(2, -2, Cell.CROSS) ||
+                        board.putIfCol(0, -2, Cell.CROSS) ||
+                        board.putIfCol(1, -2, Cell.CROSS) ||
+                        board.putIfCol(2, -2, Cell.CROSS) ||
+                        board.putIfDiagLeft(-2, Cell.CROSS) ||
+                        board.putIfDiagRight(-2, Cell.CROSS);
 
-        /*
-              Создать методы в Board:
-
-              Метод сразу рассчитывает сумму, и если сумма равна checkSum, делает putCross или putZero.
-
-              putIfRow(индекс Row, int checkSum, Enum cellType)
-              putifCol(индекс Col, int checkSum, Enum cellType)
-              putIfDiagLeft(int checkSum, Enum cellType)
-              putIfDiagRight(int checkSum, Enum cellType)
-         */
-
-        if (firstRow==-2) {
-            for (int i=0;i<3;i++){
-                if(board.get(0,i)==0){
-                    board.putCross(0,i);
-                    return true;
-                }
-            }
+    }else{
+            return
+                    board.putIfRow(0, 2, Cell.ZERO) ||
+                            board.putIfRow(1, 2, Cell.ZERO) ||
+                            board.putIfRow(2, 2, Cell.ZERO) ||
+                            board.putIfCol(0, 2, Cell.ZERO) ||
+                            board.putIfCol(1, 2, Cell.ZERO) ||
+                            board.putIfCol(2, 2, Cell.ZERO) ||
+                            board.putIfDiagLeft(2, Cell.ZERO) ||
+                            board.putIfDiagRight(2, Cell.ZERO);
         }
-        if (secondRow==-2) {
-            for (int i=0;i<3;i++){
-                if(board.get(1,i)==0){
-                    board.putCross(1,i);
-                    return true;
-                }
-            }
-        }
-        if (thirdRow==-2) {
-            for (int i=0;i<3;i++){
-                if(board.get(2,i)==0){
-                    board.putCross(2,i);
-                    return true;
-                }
-            }
-        }
-        if (firstColumn==-2) {
-            for (int i=0;i<3;i++){
-                if(board.get(i,0)==0){
-                    board.putCross(i,0);
-                    return true;
-                }
-            }
-        }
-        if (secondColumn==-2) {
-            for (int i=0;i<3;i++){
-                if(board.get(i,1)==0){
-                    board.putCross(i,1);
-                    return true;
-                }
-            }
-        }
-        if (thirdColumn==-2) {
-            for (int i=0;i<3;i++){
-                if(board.get(i,2)==0){
-                    board.putCross(i,2);
-                    return true;
-                }
-            }
-        }
-        if (diagonalRight==-2) {
-            for (int i=0;i<3;i++){
-                if(board.get(i,i)==0){
-                    board.putCross(i,i);
-                    return true;
-                }
-            }
-        }
-        if (diagonalLeft==-2) {
-            for (int i=0;i<3;i++){
-                if(board.get(i,2-i)==0){
-                    board.putCross(i,2-i);
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-    public boolean attack(){
-        int firstRow = 0, secondRow = 0, thirdRow = 0, firstColumn = 0, secondColumn = 0, thirdColumn = 0, diagonalRight = 0, diagonalLeft = 0;
-
-        for (int i = 0; i < 3; i++) {
-            firstRow = firstRow + board.get(0,i);
-            secondRow = secondRow + board.get(1,i);
-            thirdRow = thirdRow + board.get(2,i);
-            firstColumn = firstColumn + board.get(i,0);
-            secondColumn = secondColumn + board.get(i,1);
-            thirdColumn = thirdColumn + board.get(i,2);
-            diagonalRight = diagonalRight + board.get(i,i);
-            diagonalLeft = diagonalLeft + board.get(i,2-i);
-        }
-
-        if (firstRow==2) {
-            for (int i=0;i<3;i++){
-                if(board.get(0,i)==0){
-                    board.putCross(0,i);
-                    return true;
-                }
-            }
-        }
-        if (secondRow==2) {
-            for (int i=0;i<3;i++){
-                if(board.get(1,i)==0){
-                    board.putCross(1,i);
-                    return true;
-                }
-            }
-        }
-        if (thirdRow==2) {
-            for (int i=0;i<3;i++){
-                if(board.get(2,i)==0){
-                    board.putCross(2,i);
-                    return true;
-                }
-            }
-        }
-        if (firstColumn==2) {
-            for (int i=0;i<3;i++){
-                if(board.get(i,0)==0){
-                    board.putCross(i,0);
-                    return true;
-                }
-            }
-        }
-        if (secondColumn==2) {
-            for (int i=0;i<3;i++){
-                if(board.get(i,1)==0){
-                    board.putCross(i,1);
-                    return true;
-                }
-            }
-        }
-        if (thirdColumn==2) {
-            for (int i=0;i<3;i++){
-                if(board.get(i,2)==0){
-                    board.putCross(i,2);
-                    return true;
-                }
-            }
-        }
-        if (diagonalRight==2) {
-            for (int i=0;i<3;i++){
-                if(board.get(i,i)==0){
-                    board.putCross(i,i);
-                    return true;
-                }
-            }
-        }
-        if (diagonalLeft==2) {
-            for (int i=0;i<3;i++){
-                if(board.get(i,2-i)==0){
-                    board.putCross(i,2-i);
-                    return true;
-                }
-            }
-        }
-
-        return false;
     }
 
-    public boolean move(){
-        int firstRow = 0, secondRow = 0, thirdRow = 0, firstColumn = 0, secondColumn = 0, thirdColumn = 0, diagonalRight = 0, diagonalLeft = 0;
+    public boolean attack() {
+        if (!isCrossHuman) {
+            return
+                    board.putIfRow(0, 2, Cell.CROSS) ||
+                            board.putIfRow(1, 2, Cell.CROSS) ||
+                            board.putIfRow(2, 2, Cell.CROSS) ||
+                            board.putIfCol(0, 2, Cell.CROSS) ||
+                            board.putIfCol(1, 2, Cell.CROSS) ||
+                            board.putIfCol(2, 2, Cell.CROSS) ||
+                            board.putIfDiagLeft(2, Cell.CROSS) ||
+                            board.putIfDiagRight(2, Cell.CROSS);
 
-        for (int i = 0; i < 3; i++) {
-            firstRow = firstRow + board.get(0,i);
-            secondRow = secondRow + board.get(1,i);
-            thirdRow = thirdRow + board.get(2,i);
-            firstColumn = firstColumn + board.get(i,0);
-            secondColumn = secondColumn + board.get(i,1);
-            thirdColumn = thirdColumn + board.get(i,2);
-            diagonalRight = diagonalRight + board.get(i,i);
-            diagonalLeft = diagonalLeft + board.get(i,2-i);
+        } else {
+            return
+                    board.putIfRow(0, -2, Cell.ZERO) ||
+                            board.putIfRow(1, -2, Cell.ZERO) ||
+                            board.putIfRow(2, -2, Cell.ZERO) ||
+                            board.putIfCol(0, -2, Cell.ZERO) ||
+                            board.putIfCol(1, -2, Cell.ZERO) ||
+                            board.putIfCol(2, -2, Cell.ZERO) ||
+                            board.putIfDiagLeft(-2, Cell.ZERO) ||
+                            board.putIfDiagRight(-2, Cell.ZERO);
         }
-        if (firstRow!=2) {
-            for (int i=0;i<3;i++){
-                if(board.get(0,i)==0){
-                    board.putCross(0,i);
-                    return true;
-                }
-            }
+    }
+
+    public boolean move() {
+        if (!isCrossHuman) {
+            return
+                    board.putIfRowNE(0, 2, Cell.CROSS) ||
+                            board.putIfRowNE(1, 2, Cell.CROSS) ||
+                            board.putIfRowNE(2, 2, Cell.CROSS) ||
+                            board.putIfColNE(0, 2, Cell.CROSS) ||
+                            board.putIfColNE(1, 2, Cell.CROSS) ||
+                            board.putIfColNE(2, 2, Cell.CROSS) ||
+                            board.putIfDiagLeftNE(2, Cell.CROSS) ||
+                            board.putIfDiagRightNE(2, Cell.CROSS);
+        } else {
+            return
+                    board.putIfRowNE(0, -2, Cell.ZERO) ||
+                            board.putIfRowNE(1, -2, Cell.ZERO) ||
+                            board.putIfRowNE(2, -2, Cell.ZERO) ||
+                            board.putIfColNE(0, -2, Cell.ZERO) ||
+                            board.putIfColNE(1, -2, Cell.ZERO) ||
+                            board.putIfColNE(2, -2, Cell.ZERO) ||
+                            board.putIfDiagLeftNE(-2, Cell.ZERO) ||
+                            board.putIfDiagRightNE(-2, Cell.ZERO);
         }
-        if (secondRow!=2) {
-            for (int i=0;i<3;i++){
-                if(board.get(1,i)==0){
-                    board.putCross(1,i);
-                    return true;
-                }
-            }
-        }
-        if (thirdRow!=2) {
-            for (int i=0;i<3;i++){
-                if(board.get(2,i)==0){
-                    board.putCross(2,i);
-                    return true;
-                }
-            }
-        }
-        if (firstColumn!=2) {
-            for (int i=0;i<3;i++){
-                if(board.get(i,0)==0){
-                    board.putCross(i,0);
-                    return true;
-                }
-            }
-        }
-        if (secondColumn!=2) {
-            for (int i=0;i<3;i++){
-                if(board.get(i,1)==0){
-                    board.putCross(i,1);
-                    return true;
-                }
-            }
-        }
-        if (thirdColumn!=2) {
-            for (int i=0;i<3;i++){
-                if(board.get(i,2)==0){
-                    board.putCross(i,2);
-                    return true;
-                }
-            }
-        }
-        if (diagonalRight!=2) {
-            for (int i=0;i<3;i++){
-                if(board.get(i,i)==0){
-                    board.putCross(i,i);
-                    return true;
-                }
-            }
-        }
-        if (diagonalLeft!=2) {
-            for (int i=0;i<3;i++){
-                if(board.get(i,2-i)==0){
-                    board.putCross(i,2-i);
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     public void computerMove() {
-        if(counter==0){
-            board.putCross(1,1);
+        if (counter == 0 && !isCrossHuman) {
+            board.putCross(1, 1);
             counter++;
             return;
         }
-        if(!attack()){
-           if(!defense()){
-               move();
-           }
-        }
+            if (!attack()) {
+                if (!defense()) {
+                    move();
+                }
+            }
+
         counter++;
     }
 
@@ -286,8 +110,12 @@ public class Player {
             x = scanner.nextInt();
             System.out.println("Введите y");
             y = scanner.nextInt();
-            isUserMove=board.putZero(x,y);
-            if(!isUserMove){
+            if(!isCrossHuman) {
+                isUserMove = board.putZero(x, y);
+            }else{
+                isUserMove = board.putCross(x, y);
+            }
+            if (!isUserMove) {
                 System.out.println("Клетка занята");
             }
         } while (!isUserMove);
