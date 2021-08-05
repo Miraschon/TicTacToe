@@ -1,4 +1,4 @@
-package com.company;
+package com.tictactoe;
 
 public class Board {
     private int[][] cell = new int[3][3];

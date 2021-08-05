@@ -1,4 +1,4 @@
-package com.company;
+package com.tictactoe;
 
 
 import java.util.Scanner;
